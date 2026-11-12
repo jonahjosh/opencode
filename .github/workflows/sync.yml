@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at UTC 00:00
+    - cron: '0 * * * *' # Runs hourly at UTC 00:00
   workflow_dispatch: # Allows manual triggering from the Actions tab
 
 jobs:
