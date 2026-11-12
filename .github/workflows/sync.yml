@@ -1,0 +1,27 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at UTC 00:00
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push updates to your repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync upstream branches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Replace 'upstream-owner/opencode' with the original repository owner and name
+          UPSTREAM_OWNER="anomalyco"
+          UPSTREAM_REPO="opencode"
+          
+          # Sync default branch
+          gh repo sync ${{ github.repository }} --source $UPSTREAM_OWNER/$UPSTREAM_REPO
